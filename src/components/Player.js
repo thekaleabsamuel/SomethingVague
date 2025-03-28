@@ -3,7 +3,7 @@ import playlistService from "../services/playlistService";
 
 function Player() {
   const [playlist, setPlaylist] = useState([]);
-  const [currentTrack, setCurrentTrack] = useState(0);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const audioRef = useRef(null);
@@ -22,11 +22,10 @@ function Player() {
     const audio = audioRef.current;
     if (!audio) return;
 
-    const trackUrl = process.env.PUBLIC_URL + playlist[currentTrack].url.replace('public/', '');
+    const trackUrl = process.env.PUBLIC_URL + playlist[currentTrackIndex].url.replace('public/', '');
     audio.src = trackUrl;
     audio.load();
 
-    // Attempt autoplay (will work if user has interacted with page before)
     const attemptAutoplay = () => {
       audio.play()
         .then(() => setIsPlaying(true))
@@ -36,9 +35,9 @@ function Player() {
         });
     };
 
-    // Automatically go to next track when current ends
     const handleEnded = () => {
-      setCurrentTrack(prev => (prev + 1) % playlist.length);
+      // Automatically go to next track, loop to beginning if at end
+      setCurrentTrackIndex(prev => (prev + 1) % playlist.length);
     };
 
     audio.addEventListener('ended', handleEnded);
@@ -47,7 +46,7 @@ function Player() {
     return () => {
       audio.removeEventListener('ended', handleEnded);
     };
-  }, [currentTrack, playlist, isLoading]);
+  }, [currentTrackIndex, playlist, isLoading]);
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -73,7 +72,7 @@ function Player() {
     const handleError = (e) => {
       console.error("Audio error:", e);
       // Skip to next track if current one fails
-      setCurrentTrack(prev => (prev + 1) % playlist.length);
+      setCurrentTrackIndex(prev => (prev + 1) % playlist.length);
     };
 
     audio.addEventListener('play', handlePlay);
@@ -102,7 +101,7 @@ function Player() {
     );
   }
 
-  const currentTrackInfo = playlist[currentTrack];
+  const currentTrackInfo = playlist[currentTrackIndex];
   const artworkUrl = process.env.PUBLIC_URL + currentTrackInfo.artwork.replace('public/', '');
 
   return (
@@ -134,7 +133,7 @@ function Player() {
         width: "80%",
         maxWidth: "500px"
       }}>
-        <h2>Now Playing:</h2>
+        <h2>Live Now</h2>
         <h3>{currentTrackInfo.title}</h3>
         <p>{currentTrackInfo.artist}</p>
       </div>
