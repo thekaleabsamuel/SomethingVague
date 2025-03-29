@@ -1,46 +1,49 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// --- STEP 1: Define the @font-face rule as a CSS string ---
+// Make sure the path '/fonts/Daydream.ttf' is correct relative to your public folder
+const fontFaceStyles = `
+  @font-face {
+    font-family: 'Daydream';
+    src: url('/fonts/Daydream.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+`;
+// --- End of CSS String ---
+
 function Home() {
   return (
-    <div style={styles.container}>
-      <div style={styles.hero}>
-        <h1 style={styles.title}>Something Vague</h1>
-        <p style={styles.subtitle}>Discover amazing music from around the world</p>
-        
-        <div style={styles.ctaContainer}>
-          <Link to="/player" style={styles.primaryButton}>
-            Listen Now
-          </Link>
-          <Link to="/submit" style={styles.secondaryButton}>
-            Submit Your Music
-          </Link>
-        </div>
-      </div>
+    // --- STEP 2: Use a Fragment to wrap style and content ---
+    <>
+      {/* --- STEP 3: Inject the @font-face rule --- */}
+      <style dangerouslySetInnerHTML={{ __html: fontFaceStyles }} />
 
-      <div style={styles.features}>
-        <div style={styles.featureCard}>
-          <h3 style={styles.featureTitle}>Curated Selection</h3>
-          <p style={styles.featureText}>Handpicked tracks from emerging artists worldwide</p>
-        </div>
-        <div style={styles.featureCard}>
-          <h3 style={styles.featureTitle}>24/7 Streaming</h3>
-          <p style={styles.featureText}>Continuous playback with no interruptions</p>
-        </div>
-        <div style={styles.featureCard}>
-          <h3 style={styles.featureTitle}>Artist Focused</h3>
-          <p style={styles.featureText}>Supporting independent creators directly</p>
+      {/* Your existing component structure */}
+      <div style={styles.container}>
+        <div style={styles.hero}>
+          {/* The title style is updated below in the styles object */}
+          <h1 style={styles.title}>Something Vague</h1>
+          <p style={styles.subtitle}>Hear something new</p>
+
+          {/* Commented out sections remain */}
+          {/* <div style={styles.ctaContainer}> ... </div> */}
+          {/* <div style={styles.nowPlaying}> ... </div> */}
         </div>
       </div>
-    </div>
+    </> // --- End of Fragment ---
   );
 }
 
 const styles = {
   container: {
     backgroundColor: '#ffffff',
-    minHeight: '100vh',
+    minHeight: '10vh',
     padding: '0 2rem',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   hero: {
     display: 'flex',
@@ -48,90 +51,67 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    padding: '6rem 0 4rem',
-    maxWidth: '800px',
+    maxWidth: '600px',
     margin: '0 auto',
   },
   title: {
-    fontSize: '3rem',
-    fontWeight: '700',
+    // --- STEP 4: Apply the custom font using fontFamily ---
+    fontFamily: "'Daydream', sans-serif", // Use the defined name, add fallback
+    fontSize: '3rem', // Adjust size as needed for the new font
+    fontWeight: 'normal', // Often needed for custom fonts (instead of '300')
     color: '#333',
-    marginBottom: '1rem',
-    letterSpacing: '-0.05em',
+    marginBottom: '0.5rem',
+    letterSpacing: '1px',
   },
   subtitle: {
-    fontSize: '1.25rem',
+    fontFamily: "'Daydream', sans-serif", // Use the defined name, add fallback
+    fontSize: '1.1rem',
     color: '#666',
     marginBottom: '3rem',
     lineHeight: '1.6',
-    maxWidth: '600px',
+    fontWeight: '300',
   },
+  // ... (rest of your styles object remains the same)
   ctaContainer: {
-    display: 'flex',
-    gap: '1rem',
-    marginTop: '1rem',
+    margin: '2rem 0 3rem',
   },
   primaryButton: {
     backgroundColor: '#000',
     color: '#fff',
-    padding: '0.8rem 2rem',
-    borderRadius: '4px',
+    padding: '1rem 3rem',
+    borderRadius: '0',
     textDecoration: 'none',
-    fontWeight: '500',
+    fontWeight: '400',
+    letterSpacing: '1px',
+    fontSize: '1rem',
     transition: 'all 0.2s ease',
+    display: 'inline-block',
   },
-  secondaryButton: {
-    backgroundColor: 'transparent',
-    color: '#000',
-    padding: '0.8rem 2rem',
-    borderRadius: '4px',
-    border: '1px solid #000',
-    textDecoration: 'none',
-    fontWeight: '500',
-    transition: 'all 0.2s ease',
+  nowPlaying: {
+    marginTop: '3rem',
+    padding: '1.5rem 2rem',
+    borderTop: '1px solid #eee',
+    borderBottom: '1px solid #eee',
   },
-  features: {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: '2rem',
-    padding: '4rem 0',
-    flexWrap: 'wrap',
-    maxWidth: '1200px',
-    margin: '0 auto',
+  nowPlayingText: {
+    color: '#999',
+    fontSize: '0.9rem',
+    marginBottom: '0.5rem',
+    letterSpacing: '1px',
   },
-  featureCard: {
-    flex: '1',
-    minWidth: '250px',
-    maxWidth: '350px',
-    padding: '2rem',
-    border: '1px solid #eee',
-    borderRadius: '8px',
-    transition: 'all 0.3s ease',
-  },
-  featureTitle: {
-    fontSize: '1.25rem',
-    fontWeight: '600',
+  currentTrack: {
+    fontSize: '1.2rem',
+    fontWeight: '400',
     color: '#333',
-    marginBottom: '1rem',
+    margin: '0 0 0.25rem 0',
   },
-  featureText: {
-    color: '#666',
-    lineHeight: '1.6',
+  genre: {
+    color: '#999',
+    fontSize: '0.9rem',
+    margin: 0,
+    fontStyle: 'italic',
   },
 };
 
-// Add these hover effects to your CSS:
-// .primaryButton:hover {
-//   background-color: #333;
-//   transform: translateY(-2px);
-// }
-// .secondaryButton:hover {
-//   background-color: #f8f8f8;
-//   transform: translateY(-2px);
-// }
-// .featureCard:hover {
-//   transform: translateY(-5px);
-//   box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-// }
 
 export default Home;

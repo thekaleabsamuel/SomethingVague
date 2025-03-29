@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import playlistService from "../services/playlistService";
+import '../styles/player.css'; // <--- STEP 1: Import the CSS file
 
 function Player() {
   const [playlist, setPlaylist] = useState([]);
@@ -8,6 +9,7 @@ function Player() {
   const [isLoading, setIsLoading] = useState(true);
   const audioRef = useRef(null);
 
+  // ... (keep all your existing useEffect hooks and functions)
   // Load playlist from service
   useEffect(() => {
     const tracks = playlistService.getPlaylist();
@@ -36,7 +38,6 @@ function Player() {
     };
 
     const handleEnded = () => {
-      // Automatically go to next track, loop to beginning if at end
       setCurrentTrackIndex(prev => (prev + 1) % playlist.length);
     };
 
@@ -71,7 +72,6 @@ function Player() {
     const handlePause = () => setIsPlaying(false);
     const handleError = (e) => {
       console.error("Audio error:", e);
-      // Skip to next track if current one fails
       setCurrentTrackIndex(prev => (prev + 1) % playlist.length);
     };
 
@@ -84,7 +84,8 @@ function Player() {
       audio.removeEventListener('pause', handlePause);
       audio.removeEventListener('error', handleError);
     };
-  }, [playlist.length]);
+  }, [playlist.length]); // Dependency array might need currentTrackIndex if using it inside error handler
+
 
   if (isLoading || playlist.length === 0) {
     return (
@@ -123,28 +124,34 @@ function Player() {
       }}
     >
       <audio ref={audioRef} />
-      
-      <div className="track-info" style={{ 
-        backgroundColor: "rgba(0,0,0,0.7)", 
-        color: "white", 
+
+      <div className="track-info" style={{
+        backgroundColor: "rgba(0,0,0,0.7)",
+        color: "white",
         padding: "20px",
         borderRadius: "10px",
-        textAlign: "center",
+        textAlign: "center", // Keep this for centering the block
         width: "80%",
         maxWidth: "500px"
       }}>
-        <h2>Live Now</h2>
+        {/* --- STEP 2: Add the container for dot and H2 --- */}
+        <div className="live-header">
+          <span className="blinking-dot"></span>
+          <h2>Live Now</h2>
+        </div>
+        {/* --- End of Change --- */}
+
         <h3>{currentTrackInfo.title}</h3>
         <p>{currentTrackInfo.artist}</p>
       </div>
 
-      <div className="player-controls" style={{ 
-        backgroundColor: "rgba(0,0,0,0.7)", 
+      <div className="player-controls" style={{
+        backgroundColor: "rgba(0,0,0,0.7)",
         padding: "20px",
         borderRadius: "10px",
         marginBottom: "40px"
       }}>
-        <button 
+        <button
           onClick={togglePlay}
           style={{
             padding: "15px 30px",
