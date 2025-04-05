@@ -1,0 +1,175 @@
+/* src/styles/bottomPlayerBar.css */
+.bottom-player-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    height: 56px;
+    background-color: rgba(18, 18, 18, 0.95);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 0 -1px 8px rgba(0, 0, 0, 0.3);
+    color: #e0e0e0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    box-sizing: border-box;
+    border-top: 1px solid rgba(50, 50, 50, 0.3);
+}
+
+/* Create a container for the artwork and info */
+.bottom-player-left {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    flex: 1;
+    min-width: 0; /* Important for flex items with text overflow */
+}
+
+.bottom-player-artwork {
+    height: 40px;
+    width: 40px;
+    border-radius: 4px;
+    object-fit: cover;
+    margin-right: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.bottom-player-info {
+    flex: 1;
+    overflow: hidden;
+    margin-right: 15px;
+    min-width: 0; /* Allows text overflow to work properly */
+}
+
+.bottom-player-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin: 0 0 3px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #ffffff;
+    letter-spacing: 0.02em;
+}
+
+.bottom-player-artist {
+    font-size: 0.8rem;
+    color: #9e9e9e;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.01em;
+}
+
+.bottom-player-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto; /* Push controls to the right */
+    flex-shrink: 0; /* Prevent controls from shrinking */
+}
+
+.bottom-player-playpause {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background-color: #f50;
+    color: white;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(255, 85, 0, 0.3);
+}
+
+.bottom-player-playpause:hover {
+    background-color: #ff6b22;
+    transform: scale(1.05);
+}
+
+.bottom-player-playpause:disabled {
+    background-color: #444;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+
+.bottom-player-prevnext {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(60, 60, 60, 0.6);
+    color: #e0e0e0;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+.bottom-player-prevnext:hover {
+    background-color: rgba(80, 80, 80, 0.8);
+    color: white;
+}
+
+.bottom-player-error {
+    color: #ff6b6b;
+    font-size: 0.7rem;
+    margin-top: 2px;
+    letter-spacing: 0.01em;
+}
+
+/* Progress bar - optional addition */
+.bottom-player-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background-color: rgba(255, 85, 0, 0.7);
+    transition: width 0.1s linear;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 480px) {
+    .bottom-player-bar {
+        padding: 8px 12px;
+    }
+    
+    .bottom-player-artwork {
+        height: 36px;
+        width: 36px;
+        margin-right: 10px;
+    }
+
+    .bottom-player-title {
+        font-size: 0.8rem;
+    }
+    
+    .bottom-player-artist {
+        font-size: 0.7rem;
+    }
+    
+    .bottom-player-prevnext {
+        width: 26px;
+        height: 26px;
+        font-size: 0.7rem;
+    }
+    
+    .bottom-player-playpause {
+        width: 34px;
+        height: 34px;
+    }
+}
+
+/* Add other control styles if needed */

@@ -1,0 +1,270 @@
+/* src/styles/Games.css */
+.games-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* --- Games Header --- */
+.games-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.games-header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.games-header p {
+  font-size: 1.1rem;
+  color: #666;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* --- Games Grid --- */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.game-card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+.game-thumbnail {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+}
+
+.game-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.game-card:hover .game-thumbnail img {
+  transform: scale(1.05);
+}
+
+.game-info {
+  padding: 15px;
+}
+
+.game-info h3 {
+  margin: 0 0 5px;
+  font-size: 1.3rem;
+  color: #333;
+}
+
+.game-creator {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0 0 10px;
+  font-style: italic;
+}
+
+.game-description {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 15px;
+  line-height: 1.4;
+  /* Allow for 3 lines of text before truncating */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 63px; /* Approximately 3 lines of text with 1.4 line height */
+}
+
+.play-button {
+  display: inline-block;
+  background-color: #f50;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.play-button:hover {
+  background-color: #ff6b22;
+}
+
+/* --- Game Footer --- */
+.games-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.games-footer a {
+  color: #f50;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.games-footer a:hover {
+  text-decoration: underline;
+}
+
+/* --- Game Player View --- */
+.game-player {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.game-player-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.game-player-header h2 {
+  margin: 10px 0 5px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.game-player-header p {
+  margin: 0;
+  color: #888;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: #f50;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.back-button:hover {
+  text-decoration: underline;
+}
+
+.game-container {
+  width: 100%;
+  height: 0;
+  padding-bottom: 60%; /* 16:9 aspect ratio */
+  position: relative;
+  margin-bottom: 20px;
+  background-color: #222;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.game-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+}
+
+.game-placeholder img {
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.game-description {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.game-controls {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+  .games-header h1 {
+    font-size: 2rem;
+  }
+  
+  .games-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .game-player-header h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .games-page {
+    padding: 15px;
+  }
+  
+  .games-header {
+    margin-bottom: 25px;
+  }
+  
+  .games-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .games-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .game-thumbnail {
+    height: 160px;
+  }
+  
+  .game-info h3 {
+    font-size: 1.2rem;
+  }
+  
+  .game-player {
+    padding: 15px;
+  }
+  
+  .game-container {
+    padding-bottom: 75%; /* Taller aspect ratio for mobile */
+  }
+} 

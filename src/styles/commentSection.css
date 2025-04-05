@@ -1,0 +1,290 @@
+/* Comment Section Styles - SoundCloud inspired */
+
+.comment-section {
+  background: transparent;
+  color: #333;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.comment-section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.comments-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.no-comments {
+  text-align: center;
+  color: #999;
+  font-style: italic;
+  margin: 30px 0;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 4px;
+}
+
+.comment {
+  display: flex;
+  padding: 12px;
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.comment:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+.comment-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.comment-author {
+  font-weight: 600;
+  color: #f50;
+  font-size: 14px;
+}
+
+.comment-time {
+  color: #999;
+  font-size: 12px;
+}
+
+.comment-text {
+  margin: 0;
+  line-height: 1.4;
+  word-break: break-word;
+  font-size: 14px;
+  color: #333;
+}
+
+.comment-form {
+  display: flex;
+  gap: 8px;
+  background-color: #f7f7f7;
+  padding: 15px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form input {
+  flex: 1;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+}
+
+.comment-form input:focus {
+  outline: none;
+  border-color: #f50;
+  box-shadow: 0 0 0 2px rgba(255, 85, 0, 0.1);
+}
+
+.comment-form button {
+  background: #f50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.comment-form button:hover {
+  background: #ff6b22;
+}
+
+.comment-form button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.comment-login-prompt {
+  text-align: center;
+  padding: 15px;
+  background-color: #f7f7f7;
+  border-radius: 4px;
+  color: #666;
+  font-size: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment-login-prompt a {
+  color: #f50;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.comment-login-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* SoundCloud Timeline layout */
+.sc-timeline {
+  display: flex;
+  width: 100%;
+  position: relative;
+  margin: 20px 0;
+}
+
+.sc-timeline-comments {
+  position: absolute;
+  top: -30px;
+  width: 100%;
+  height: 30px;
+  pointer-events: none;
+}
+
+.sc-timeline-comment-marker {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translateX(-50%);
+}
+
+.sc-timeline-comment-marker img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #f50;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .comment-section {
+    max-width: 100%;
+  }
+  
+  .comments-container {
+    max-height: none;
+    overflow-y: visible;
+  }
+}
+
+/* SoundCloud-like waveform comment integration */
+.waveform-comments-container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.waveform-comment-indicators {
+  position: absolute;
+  top: -15px;
+  width: 100%;
+  height: 15px;
+  z-index: 5;
+}
+
+.waveform-comment-indicator {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.waveform-comment-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #f50;
+  object-fit: cover;
+}
+
+.show-more-comments {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  text-align: center;
+  background: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  color: #666;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.show-more-comments:hover {
+  background-color: #f5f5f5;
+  color: #f50;
+  border-color: #f50;
+}
+
+/* Integration with player */
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.player-comment-section {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  .player-container {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  
+  .player-ui-container {
+    flex: 1;
+  }
+  
+  .player-comment-section {
+    width: 35%;
+    margin-top: 0;
+  }
+} 

@@ -6,15 +6,36 @@ const playlistService = (() => {
         id: 1,
         title: "fukdafrailshi",
         artist: "Chico Mcgee",
-        url: "public/tracks/fukdafrailshii .wav", // Local file path
-        artwork: "public/artwork/artwork.PNG",
+        url: "/tracks/fukdafrailshii .wav", // Use root-relative path with leading slash
+        artwork: "/artwork/artwork.PNG",
       },
       {
         id: 2,
         title: "Benjaminz",
         artist: "Chico Mcgee",
-        url: "public/tracks/benzjamins ROUGH - MASTER.mp3",
-        artwork: "/public/artwork/IMG_5336.jpeg",
+        url: "/tracks/benzjamins ROUGH - MASTER.mp3",
+        artwork: "/artwork/IMG_5336.jpeg",
+      },
+      {
+        id: 3,
+        title: "Track 3",
+        artist: "Something Vague",
+        url: "/tracks/track3.mp3",
+        artwork: "/artwork/cover3.jpg",
+      },
+      {
+        id: 4,
+        title: "Track 2",
+        artist: "Something Vague",
+        url: "/tracks/track2.mp3",
+        artwork: "/artwork/cover2.jpg",
+      },
+      {
+        id: 5,
+        title: "Track 1",
+        artist: "Chico Mcgee",
+        url: "/tracks/track1.mp3",
+        artwork: "/artwork/cover1.jpg",
       },
     ];
   

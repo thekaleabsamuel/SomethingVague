@@ -1,62 +1,160 @@
+/* Reset navbar styling for a cleaner approach */
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333;
-    color: white;
-    padding: 1rem;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  height: 60px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 100;
+}
+
+.logo-container {
+  margin-right: 20px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.links-container {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  color: #555;
+  font-size: 0.9rem;
+  text-decoration: none;
+  position: relative;
+  padding: 3px 0;
+}
+
+.nav-link:hover {
+  color: #f50;
+}
+
+/* Underline effect */
+.nav-link:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #f50;
+  transform: scaleX(0);
+  transition: transform 0.2s ease-in-out;
+}
+
+.nav-link:hover:after {
+  transform: scaleX(1);
+}
+
+.admin-link {
+  color: #f50;
+  font-weight: 600;
+}
+
+.auth-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+
+.user-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #555;
+  text-decoration: none;
+}
+
+.profile-picture-small {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-icon {
+  font-size: 1rem;
+}
+
+.welcome-text {
+  font-size: 0.85rem;
+  color: #666;
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.auth-button {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #555;
+  cursor: pointer;
+}
+
+.auth-button:hover {
+  border-color: #f50;
+  color: #f50;
+}
+
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.auth-link {
+  font-size: 0.85rem;
+  color: #555;
+  text-decoration: none;
+}
+
+.auth-link:hover {
+  color: #f50;
+}
+
+.divider {
+  color: #ccc;
+}
+
+/* Mobile styling */
+@media (max-width: 768px) {
+  .navbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+  }
+  
+  .links-container {
+    order: 3;
     width: 100%;
+    overflow-x: auto;
+    padding: 10px 0;
+    justify-content: space-between;
+    margin-top: 10px;
+    gap: 15px;
   }
   
-  .navbar-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+  .welcome-text {
+    display: none;
   }
-  
-  .navbar-logo a {
-    color: white;
-    text-decoration: none;
-  }
-  
-  .navbar-links {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    gap: 1rem;
-  }
-  
-  .navbar-links li {
-    margin: 0;
-  }
-  
-  .navbar-links a, .navbar-links button {
-    color: white;
-    text-decoration: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar-links a:hover, .navbar-links button:hover {
-    color: #4CAF50;
-  }
-  
-  .navbar-auth {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  
-  .navbar-auth button {
-    background-color: #4CAF50;
-    padding: 0.5rem 1rem;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .navbar-auth button:hover {
-    background-color: #45a049;
-  }
+}

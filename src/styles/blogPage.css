@@ -1,0 +1,43 @@
+/* src/styles/blogPage.css */
+.blog-page {
+    padding: 2rem 1rem; /* Add some padding */
+    max-width: 1000px; /* Optional: constrain overall width */
+    margin: 0 auto; /* Center the page content */
+    padding-bottom: 100px; /* Add padding below content, esp. if bottom player exists */
+  }
+  
+  .blog-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 1.5rem;
+  }
+  
+  .blog-header h1 {
+    margin-bottom: 0.5rem;
+    color: #333;
+  }
+  .blog-header p {
+    color: #666;
+    font-size: 1.1em;
+  }
+  
+  
+  .blog-posts-container {
+    /* No specific styles needed unless you want columns */
+  }
+  
+  .loader-trigger {
+    height: 50px; /* Give it some height */
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 2rem;
+  }
+  
+  .end-of-posts-message {
+    text-align: center;
+    color: #999;
+    margin-top: 3rem;
+    font-style: italic;
+  }
