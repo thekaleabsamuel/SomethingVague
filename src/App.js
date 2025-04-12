@@ -6,6 +6,7 @@ import {
   useLocation,
   Outlet
 } from 'react-router-dom';
+import { AudioProvider } from './context/AudioContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Player from './components/Player';
@@ -48,56 +49,58 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Navbar user={user} setUser={setUser} isAdmin={isAdmin} />
-      <div
-        style={{ 
-          flex: 1,
-          width: '100%',
-          paddingBottom: !isHomePage ? bottomPlayerBarHeight : '0' 
-        }}
-      >
-        <Routes>
-          {/* Home page doesn't need content wrapper as it has its own layout */}
-          <Route path="/" element={<Home />} />
-          
-          {/* Routes with content wrapper */}
-          <Route element={<ContentLayout />}>
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/games" element={<Games />} />
-            <Route path="/login" element={<Login setUser={setUser} />} />
-            <Route path="/register" element={<Register setUser={setUser} />} />
-            <Route 
-              path="/profile" 
-              element={
-                user ? (
-                  <Profile user={user} updateUser={updateUser} />
-                ) : (
-                  <Navigate to="/login" replace state={{ from: location }} />
-                )
-              } 
-            />
-            <Route
-              path="/blog-admin"
-              element={
-                isAdmin ? (
-                  <SubmitPostForm />
-                ) : (
-                  <Navigate to="/login" replace state={{ from: location }} />
-                )
-              }
-            />
-          </Route>
-          
-          {/* Submit page has its own container styles */}
-          <Route path="/submit" element={<Submit />} />
-          
-          {/* Add a 404 route if needed */}
-          {/* <Route path="*" element={<NotFound />} /> */}
-        </Routes>
+    <AudioProvider>
+      <div className="App">
+        <Navbar user={user} setUser={setUser} isAdmin={isAdmin} />
+        <div
+          style={{ 
+            flex: 1,
+            width: '100%',
+            paddingBottom: !isHomePage ? bottomPlayerBarHeight : '0' 
+          }}
+        >
+          <Routes>
+            {/* Home page doesn't need content wrapper as it has its own layout */}
+            <Route path="/" element={<Home />} />
+            
+            {/* Routes with content wrapper */}
+            <Route element={<ContentLayout />}>
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/games" element={<Games />} />
+              <Route path="/login" element={<Login setUser={setUser} />} />
+              <Route path="/register" element={<Register setUser={setUser} />} />
+              <Route 
+                path="/profile" 
+                element={
+                  user ? (
+                    <Profile user={user} updateUser={updateUser} />
+                  ) : (
+                    <Navigate to="/login" replace state={{ from: location }} />
+                  )
+                } 
+              />
+              <Route
+                path="/blog-admin"
+                element={
+                  isAdmin ? (
+                    <SubmitPostForm />
+                  ) : (
+                    <Navigate to="/login" replace state={{ from: location }} />
+                  )
+                }
+              />
+            </Route>
+            
+            {/* Submit page has its own container styles */}
+            <Route path="/submit" element={<Submit />} />
+            
+            {/* Add a 404 route if needed */}
+            {/* <Route path="*" element={<NotFound />} /> */}
+          </Routes>
+        </div>
+        <Player user={user} />
       </div>
-      <Player user={user} />
-    </div>
+    </AudioProvider>
   );
 }
 

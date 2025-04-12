@@ -12,39 +12,36 @@ function Login({ setUser }) {
   // Check if we were redirected from another page
   const from = location.state?.from?.pathname || '/';
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
 
-    // Check if this is an admin login
-    const isAdminEmail = email.endsWith('@admin.com');
-
-    // In a real app, you would validate credentials with your backend
-    // This is just a placeholder
-    if (password.length < 4) {
-      setError('Password must be at least 4 characters');
-      return;
-    }
-
     try {
-      // Mock authentication logic
-      // In a real app, this would be an API call
-      const mockUser = { 
-        email,
-        displayName: email.split('@')[0],
-        // Set admin flag if it's an admin email
-        isAdmin: isAdminEmail
-      };
-      
-      setUser(mockUser);
-      
-      // If admin, redirect to blog admin, else go to requested page or home
-      if (isAdminEmail) {
-        navigate('/blog-admin');
-      } else {
-        navigate(from);
+      const response = await fetch('http://localhost:5001/api/users/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
       }
+
+      // Store both token and user data
+      if (!data.token || !data.user) {
+        throw new Error('Invalid response from server');
+      }
+
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      setUser(data.user);
+      navigate(from);
     } catch (err) {
+      console.error('Login error:', err);
       setError('Login failed: ' + (err.message || 'Unknown error'));
     }
   };
@@ -72,11 +69,6 @@ function Login({ setUser }) {
         />
         <button type="submit">Login</button>
         <p>Don't have an account? <a href="/register">Register</a></p>
-        
-        {/* Add admin login hint */}
-        <div className="login-hint">
-          {/* <p>For admin access, use an email ending with @admin.com</p> */}
-        </div>
       </form>
     </div>
   );

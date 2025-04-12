@@ -6,11 +6,11 @@ function Register({ setUser }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [displayName, setDisplayName] = useState('');
+  const [username, setUsername] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     
     // Basic validation
@@ -27,16 +27,38 @@ function Register({ setUser }) {
     // Clear any previous errors
     setError('');
     
-    // Placeholder registration logic
-    // In a real application, you would call your API here
-    const mockUser = { 
-      email,
-      displayName: displayName || email.split('@')[0], // Use part of email if no display name
-      isRegistered: true
-    };
-    
-    setUser(mockUser);
-    navigate('/profile'); // Redirect to profile to complete setup
+    try {
+      const response = await fetch('http://localhost:5001/api/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          email,
+          password
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+
+      // Store the token in localStorage
+      localStorage.setItem('token', data.token);
+      
+      // Set the user in the app state
+      setUser({
+        ...data.user,
+        isAdmin: data.user.role === 'ADMIN'
+      });
+      
+      navigate('/profile');
+    } catch (err) {
+      setError('Registration failed: ' + (err.message || 'Unknown error'));
+    }
   };
 
   return (
@@ -47,18 +69,19 @@ function Register({ setUser }) {
         {error && <p className="error-message">{error}</p>}
         
         <input 
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        
+        <input 
           type="email" 
           placeholder="Email" 
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required 
-        />
-        
-        <input 
-          type="text" 
-          placeholder="Display Name (optional)" 
-          value={displayName}
-          onChange={(e) => setDisplayName(e.target.value)}
         />
         
         <input 

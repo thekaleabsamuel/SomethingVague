@@ -74,3 +74,100 @@
     margin-bottom: 15px;
     text-align: center;
   }
+
+.admin-track-manager {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.upload-section {
+  margin: 20px 0;
+  padding: 20px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.upload-section h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.dropzone {
+  padding: 20px;
+  border: 2px dashed #4CAF50;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dropzone:hover {
+  background-color: #f0f0f0;
+  border-color: #45a049;
+}
+
+.dropzone p {
+  margin: 0;
+  color: #666;
+}
+
+.artwork-preview {
+  margin-top: 15px;
+}
+
+.artwork-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.success-message {
+  color: #4CAF50;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.save-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}
+
+.save-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.submit-button {
+  background-color: #2196F3;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.submit-button:hover {
+  background-color: #0b7dda;
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

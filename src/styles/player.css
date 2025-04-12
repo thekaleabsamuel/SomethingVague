@@ -28,123 +28,125 @@ body {
   border-radius: 8px;
 }
 
-/* --- SoundCloud-like Player Container --- */
+/* --- Player Container --- */
 .player-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 20px auto;
   padding: 0 15px;
   box-sizing: border-box;
-}
-
-/* Main player header with artwork and controls */
-.player-header {
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(135deg, #333 0%, #111 100%);
-  border-radius: 8px;
-  padding: 25px;
-  color: white;
-  position: relative;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-}
-
-.player-top-section {
-  display: flex;
-  margin-bottom: 30px;
-}
-
-.player-left-section {
-  flex: 1;
-}
-
-.player-play-button {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background-color: #f50;
-  border: none;
-  color: white;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-right: 20px;
-  box-shadow: 0 2px 8px rgba(255, 85, 0, 0.4);
-  transition: all 0.2s;
-}
-
-.player-play-button:hover {
-  background-color: #ff6b22;
-  transform: scale(1.05);
-}
-
-.player-info {
   display: flex;
   flex-direction: column;
 }
 
-.player-track-title {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0 0 5px 0;
-}
-
-.player-artist-name {
-  font-size: 16px;
-  color: #ccc;
-  margin: 0;
-}
-
-.player-meta {
+/* --- Centered Player UI Container --- */
+.player-ui-container {
+  /* Let's make the container itself fill space and center content */
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-top: 10px;
-  font-size: 14px;
-  color: #999;
-}
-
-.player-time-ago {
-  margin-right: 15px;
-}
-
-.player-genre-tag {
-  background-color: rgba(255, 255, 255, 0.1);
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 12px;
-}
-
-/* Centered artwork */
-.player-artwork-container {
-  display: flex;
-  justify-content: center;
+  justify-content: center; /* Center content vertically within its own box */
   width: 100%;
-  margin: 20px 0;
+  max-width: 380px;
+  margin: 5vh auto; /* Vertical margin auto for centering if parent isn't flex */
+  padding: 30px 25px;
+  box-sizing: border-box;
+  border-radius: 15px;
+  background-color: rgba(20, 20, 20, 0.7); /* Dark semi-transparent background */
+  backdrop-filter: blur(20px) saturate(180%); /* Frosted glass effect */
+  -webkit-backdrop-filter: blur(20px) saturate(180%); /* Safari */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+  position: relative;
 }
 
+/* --- Player Artwork (Inside UI) --- */
 .player-artwork {
   width: 280px;
   height: 280px;
+  max-width: 100%;
+  margin-bottom: 25px;
   border-radius: 8px;
   background-size: cover;
   background-position: center;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 
-/* Waveform section */
+/* --- Track Details --- */
+.player-track-details {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.player-track-details h2 {
+  margin: 0 0 5px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.player-track-details p {
+  margin: 0;
+  font-size: 1rem;
+  color: #ccc;
+}
+
+.scheduled-time {
+  margin-top: 10px !important;
+  padding: 6px 12px;
+  background-color: rgba(255, 85, 0, 0.2);
+  border-radius: 4px;
+  font-size: 0.8rem !important;
+  display: inline-block;
+}
+
+/* --- Waveform section --- */
 .player-waveform-container {
-  height: 100px;
+  height: 80px;
   width: 100%;
   position: relative;
-  margin-bottom: 15px;
-  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.3);
   border-radius: 4px;
   overflow: hidden;
 }
 
+/* Direct WaveSurfer container */
+.waveform {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Override WaveSurfer styles for better integration */
+.player-waveform-container wave {
+  overflow: hidden !important;
+  border-radius: 4px;
+}
+
+/* Make sure canvas is always 100% width */
+.waveform canvas {
+  width: 100% !important;
+  border-radius: 4px;
+}
+
+/* Make sure WaveSurfer progress looks good */
+.waveform > wave > wave {
+  border-right: none !important;
+  overflow: hidden !important;
+}
+
+/* Bar styling for WaveSurfer */
+.waveform .wavesurfer-bar {
+  border-radius: 2px;
+}
+
+/* For backwards compatibility in case we need to fallback */
 .player-waveform {
   position: relative;
   width: 100%;
@@ -168,100 +170,106 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0.7;
 }
 
-/* Player controls */
-.player-controls {
+/* --- Controls --- */
+.player-controls-centered {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 15px;
-  margin-top: 15px;
+  width: 100%;
+  gap: 20px;
+  margin-bottom: 15px;
 }
 
-.player-controls button {
-  background: none;
-  border: none;
-  color: white;
+.control-button {
   cursor: pointer;
-  font-size: 16px;
-  padding: 8px;
-  border-radius: 50%;
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1.2rem;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s;
+  border-radius: 50%;
+  transition: all 0.2s;
 }
 
-.player-controls button:hover {
+.control-button:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.player-like-button {
-  display: flex;
-  align-items: center;
-  color: #f50;
-  font-size: 14px;
-  margin-left: auto;
+.control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.player-like-button span {
-  margin-left: 5px;
+.play-pause-main {
+  font-size: 2.8em;
+  color: #ffffff;
 }
 
-/* Comment section styling */
+.play-pause-main:active {
+  transform: scale(0.95);
+}
+
+.control-button-placeholder {
+  width: 1.8em;
+  padding: 10px;
+  visibility: hidden;
+}
+
+/* --- Time Display --- */
+.player-time {
+  color: #ccc;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 5px;
+}
+
+/* --- Comment Section Integration --- */
 .player-comment-section {
   width: 100%;
   margin-top: 30px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .player-comment-header {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding-bottom: 10px;
   margin-bottom: 20px;
-  display: flex;
-  align-items: center;
 }
 
 .player-comment-title {
   font-size: 18px;
   margin: 0;
-  color: white;
+  color: #333;
+  font-weight: 600;
 }
 
-/* Playlist indication */
-.player-playlist-info {
-  display: inline-flex;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 6px 12px;
-  border-radius: 4px;
-  font-size: 12px;
-  color: #ccc;
-  margin-top: 10px;
-}
-
-.player-playlist-icon {
-  margin-right: 6px;
-  font-size: 16px;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .player-top-section {
-    flex-direction: column;
-  }
-  
-  .player-play-button {
-    margin-bottom: 15px;
+/* Media queries for responsive layout */
+@media (max-width: 480px) {
+  .player-ui-container {
+    padding: 20px 15px;
   }
   
   .player-artwork {
-    width: 200px;
-    height: 200px;
+    width: 220px;
+    height: 220px;
+  }
+  
+  .player-track-details h2 {
+    font-size: 1.3rem;
   }
   
   .player-waveform-container {
-    height: 80px;
+    height: 60px;
   }
 }
 

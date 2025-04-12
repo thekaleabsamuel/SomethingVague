@@ -175,8 +175,8 @@ function SubmitPostForm() {
 
     if (!artistEmail || !/\S+@\S+\.\S+/.test(artistEmail)) {
       setError('Please enter a valid email address.');
-      setIsSubmitting(false);
-      return;
+       setIsSubmitting(false);
+       return;
     }
 
     if (submissionType === 'music') {
@@ -187,14 +187,14 @@ function SubmitPostForm() {
       }
       if (artworkFiles.length === 0) {
         setError('Please upload artwork for your audio.');
-        setIsSubmitting(false);
-        return;
-      }
+       setIsSubmitting(false);
+       return;
+     }
       if (!trackTitle) {
         setError('Please enter a track title.');
         setIsSubmitting(false);
         return;
-      }
+     }
     } else if (submissionType === 'visual' && files.length === 0) {
       setError('Please upload at least one photo or video.');
       setIsSubmitting(false);
@@ -254,15 +254,15 @@ function SubmitPostForm() {
   // Render file previews
   const renderFilePreviews = (fileArray, setFileArray) => {
     return fileArray.map((file, index) => (
-      <div key={index} className="file-preview">
-        {file.type.startsWith('image/') ? (
-          <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
-        ) : (
-          <div className="file-preview-icon">
+     <div key={index} className="file-preview">
+       {file.type.startsWith('image/') ? (
+         <img src={URL.createObjectURL(file)} alt={`Preview ${index}`} />
+       ) : (
+         <div className="file-preview-icon">
             <span>{file.type.startsWith('audio/') ? '🎵' : (file.type.startsWith('video/') ? '🎬' : '📄')}</span>
             <p>{file.name}</p>
-          </div>
-        )}
+         </div>
+       )}
         <button 
           type="button" 
           onClick={() => removeFile(fileArray, setFileArray, index)} 
@@ -270,8 +270,8 @@ function SubmitPostForm() {
         >
           &times;
         </button>
-      </div>
-    ));
+     </div>
+   ));
   };
 
   return (
@@ -290,13 +290,13 @@ function SubmitPostForm() {
         >
           Music
         </button>
-        <button
-          type="button"
+          <button
+            type="button"
           className={`type-btn ${submissionType === 'visual' ? 'active' : ''}`}
           onClick={() => handleTypeChange('visual')}
-        >
+          >
           Photo/Video
-        </button>
+          </button>
       </div>
 
       <form onSubmit={handleSubmit}>
@@ -362,7 +362,7 @@ function SubmitPostForm() {
               )}
             </div>
 
-            <div className="form-group">
+          <div className="form-group">
               <label>Track Artwork*</label>
               <div {...artworkDropzone.getRootProps()} className={`dropzone ${artworkDropzone.isDragActive ? 'active' : ''}`}>
                 <input {...artworkDropzone.getInputProps()} />
@@ -378,7 +378,7 @@ function SubmitPostForm() {
                   {renderFilePreviews(artworkFiles, setArtworkFiles)}
                 </aside>
               )}
-            </div>
+          </div>
           </>
         )}
 
@@ -389,17 +389,17 @@ function SubmitPostForm() {
             <div {...visualDropzone.getRootProps()} className={`dropzone ${visualDropzone.isDragActive ? 'active' : ''}`}>
               <input {...visualDropzone.getInputProps()} />
               {visualDropzone.isDragActive ? (
-                <p>Drop the files here ...</p>
-              ) : (
+                    <p>Drop the files here ...</p>
+                ) : (
                 <p>Drag 'n' drop your photos/videos here, or click to select</p>
-              )}
-            </div>
-            {files.length > 0 && (
-              <aside className="file-previews-container">
-                <h4>Selected Files:</h4>
+                )}
+             </div>
+              {files.length > 0 && (
+                  <aside className="file-previews-container">
+                     <h4>Selected Files:</h4>
                 {renderFilePreviews(files, setFiles)}
-              </aside>
-            )}
+                  </aside>
+              )}
           </div>
         )}
 
