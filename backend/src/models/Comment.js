@@ -11,9 +11,9 @@ const commentSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  post: {
+  feed: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'BlogPost',
+    ref: 'Feed',
     required: true
   },
   parentComment: {
@@ -37,6 +37,8 @@ const commentSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
+}, {
+  timestamps: true
 });
 
 // Update the updatedAt timestamp before saving
@@ -48,9 +50,9 @@ commentSchema.pre('save', function(next) {
   next();
 });
 
-// Indexes for better query performance
-commentSchema.index({ post: 1, createdAt: -1 });
-commentSchema.index({ author: 1, createdAt: -1 });
+// Add indexes for better query performance
+commentSchema.index({ feed: 1, createdAt: -1 });
+commentSchema.index({ author: 1 });
 
 const Comment = mongoose.model('Comment', commentSchema);
 

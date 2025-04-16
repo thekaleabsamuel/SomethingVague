@@ -4,6 +4,39 @@ const User = require('../models/User');
 const { authenticate, authorize } = require('../middleware/auth');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
+const fs = require('fs');
+
+// Configure storage for profile pictures
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    const dir = 'uploads/profile-pictures';
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    cb(null, dir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ 
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB limit
+  },
+  fileFilter: (req, file, cb) => {
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type. Only JPEG, PNG and GIF are allowed.'));
+    }
+  }
+});
 
 // Register new user
 router.post('/register', async (req, res) => {
@@ -37,7 +70,8 @@ router.post('/register', async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        role: user.role
+        role: user.role,
+        profilePicture: user.profilePicture
       }
     });
   } catch (error) {
@@ -77,7 +111,8 @@ router.post('/login', async (req, res) => {
         id: user._id,
         username: user.username,
         email: user.email,
-        role: user.role
+        role: user.role,
+        profilePicture: user.profilePicture
       }
     });
   } catch (error) {
@@ -97,27 +132,36 @@ router.get('/profile', authenticate, async (req, res) => {
 });
 
 // Update user profile
-router.put('/profile', authenticate, async (req, res) => {
-  try {
-    const updates = { ...req.body };
-    
-    // If password is being updated, hash it
-    if (updates.password) {
-      const salt = await bcrypt.genSalt(10);
-      updates.password = await bcrypt.hash(updates.password, salt);
+router.put('/profile', 
+  authenticate, 
+  upload.single('profilePicture'),
+  async (req, res) => {
+    try {
+      const updates = { ...req.body };
+      
+      // If password is being updated, hash it
+      if (updates.password) {
+        const salt = await bcrypt.genSalt(10);
+        updates.password = await bcrypt.hash(updates.password, salt);
+      }
+
+      // If profile picture is uploaded, update the path
+      if (req.file) {
+        updates.profilePicture = `/uploads/profile-pictures/${req.file.filename}`;
+      }
+
+      const user = await User.findByIdAndUpdate(
+        req.user._id,
+        updates,
+        { new: true }
+      ).select('-password');
+
+      res.json(user);
+    } catch (error) {
+      res.status(400).json({ message: 'Error updating profile', error: error.message });
     }
-
-    const user = await User.findByIdAndUpdate(
-      req.user._id,
-      updates,
-      { new: true }
-    ).select('-password');
-
-    res.json(user);
-  } catch (error) {
-    res.status(400).json({ message: 'Error updating profile', error: error.message });
   }
-});
+);
 
 // Get all users (admin only)
 router.get('/', authenticate, authorize(['admin']), async (req, res) => {
